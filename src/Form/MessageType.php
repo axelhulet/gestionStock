@@ -2,10 +2,10 @@
 
 namespace App\Form;
 use App\Entity\Message;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +15,7 @@ class MessageType extends AbstractType
 {
     // les champs contenu dans le formulaire
     $builder
-        ->add('name', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+        ->add('name', TextType::class, [
             'required' => true,
             'attr' =>  [ 'class' => 'form-control']
         ])
