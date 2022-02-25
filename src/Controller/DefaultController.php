@@ -3,11 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Message;
+use App\Entity\User;
 use App\Form\MessageType;
+use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
@@ -51,19 +56,51 @@ class DefaultController extends AbstractController
     }
 
     #[Route(path: '/contact_us', name: 'default_contact_us')]
-    public function contactUs(Request $request) {
+    public function contactUs(Request $request, MailerInterface $mailer) {
     //récupération des données en POST (ne pas utiliser cette manière mais passer par formType
         //$email = $request->request->get('email');
         //$message = $request->request->get('message');
         //creation d'un message vide
         $message = new Message();
-        dump($message);
+//        dump($message);
         //methode qui permet de créer un formulaire
         $form = $this->createForm(MessageType::class, $message);
 
         $form->handleRequest($request);
-        dump($message);
+
+        if ($form->isSubmitted()/* && $form->isValid()*/){
+            $email = new  Email();
+            $email->to('axelhulet@gmail.com');
+            $email->from('noreply.bformation@gmail.com');
+            $email->subject(sprintf(
+                "l'utilisateur %s vous a envoyé un message",
+                $message->getEmail()
+            ));
+            $email->html(sprintf("<p>%s</p>", $message->getMessage()));
+            try {
+                $mailer->send($email);
+                $this->addFlash('success', 'votre message a bien été envoyé');
+            } catch (TransportExceptionInterface){
+                $this->addFlash('error', 'une erreur est survenue, veuillez nous en excuser');
+            }
+            $this->redirectToRoute('/');
+        }
+
+//        dump($message);
         return $this->render('default/contact_us.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route(path: '/new_user', name: 'default_new_user')]
+    public function newUser(Request $request) {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+
+
+        return $this->render('default/new_user.html.twig', [
             'form' => $form->createView()
         ]);
     }

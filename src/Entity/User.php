@@ -2,7 +2,8 @@
 
 namespace App\Entity;
 
-use Symfony\Component\Validator\Constraints\Date;
+
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class User
 {
@@ -15,7 +16,7 @@ class User
      */
     private $firstName;
     /**
-     * @var Date
+     * @var \DateTime
      */
     private $birthDate;
     /**
@@ -23,9 +24,11 @@ class User
      */
     private $title;
     /**
-     * @var string
+     * @var UploadedFile
      */
     private $file;
+
+
     /**
      * @var boolean
      */
@@ -68,22 +71,24 @@ class User
     }
 
     /**
-     * @return Date
+     * @return \DateTime
      */
-    public function getBirthDate(): Date
+    public function getBirthDate(): \DateTime
     {
         return $this->birthDate;
     }
 
     /**
-     * @param Date $birthDate
+     * @param \DateTime $birthDate
      * @return User
      */
-    public function setBirthDate(Date $birthDate): User
+    public function setBirthDate(\DateTime $birthDate): User
     {
         $this->birthDate = $birthDate;
         return $this;
     }
+
+
 
     /**
      * @return string
@@ -104,22 +109,23 @@ class User
     }
 
     /**
-     * @return string
+     * @return UploadedFile
      */
-    public function getFile(): string
+    public function getFile(): ?UploadedFile
     {
         return $this->file;
     }
 
     /**
-     * @param string $file
+     * @param UploadedFile $file
      * @return User
      */
-    public function setFile(string $file): User
+    public function setFile(UploadedFile $file): User
     {
         $this->file = $file;
         return $this;
     }
+
 
     /**
      * @return bool
