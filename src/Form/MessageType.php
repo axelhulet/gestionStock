@@ -33,6 +33,7 @@ class MessageType extends AbstractType
         $resolver->setDefaults(
             // le nom de la classe liée au formulaire
             ['data_class' => Message::class]
+//            'csrf_protection' => false
         );
     }
 }

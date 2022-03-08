@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class Message
 {
@@ -11,10 +12,14 @@ class Message
     /**
      * @var string
      */
+    #[Assert\Email]
+    #[Assert\NotBlank]
     private $email ;
     /**
      * @var string
      */
+    #[Assert\NotBlank(message: 'ce champs est requis')]
+    #[Assert\Length( max:1000, min: 10, maxMessage: 'trop long', minMessage: 'trop court')]
     private  $message;
 
     /**

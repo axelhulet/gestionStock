@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h3>Enregistrez-vous</h3>
+    <form action="" method="post" enctype="multipart/form-data">
+        {{ form_widget(form._token) }}
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                {{ form_row(form.nom)}}
+            </div>
+            <div class="form-group col-md-6">
+                {{ form_row(form.prenom)}}
+            </div>
+        </div>
+        <div class="row">
+        <div class="form-group col-md-6">
+            {{ form_row(form.email)}}
+        </div>
+            <div class="form-group col-md-6">
+            {{ form_row(form.tel)}}
+        </div>
+        </div>
+        <div class="form-group mt-2 ">
+            <button class="btn btn-primary " type="submit" name="submit" id="submit"><i class="fa fa-plane"></i> Envoyer</button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

@@ -24,3 +24,4 @@ class SendMailController extends AbstractController
       return $this->render('default/home.html.twig');
     }
 }
+

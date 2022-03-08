@@ -68,7 +68,7 @@ class DefaultController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()/* && $form->isValid()*/){
+        if ($form->isSubmitted() && $form->isValid()){
             $email = new  Email();
             $email->to('axelhulet@gmail.com');
             $email->from('noreply.bformation@gmail.com');
@@ -76,14 +76,15 @@ class DefaultController extends AbstractController
                 "l'utilisateur %s vous a envoyé un message",
                 $message->getEmail()
             ));
-            $email->html(sprintf("<p>%s</p>", $message->getMessage()));
+//            $email->html(sprintf("<p>%s</p>", $message->getMessage()));
+            $email->html($this->renderView('mail/contact_us.html.twig',['model' => $message]));
             try {
                 $mailer->send($email);
                 $this->addFlash('success', 'votre message a bien été envoyé');
             } catch (TransportExceptionInterface){
                 $this->addFlash('error', 'une erreur est survenue, veuillez nous en excuser');
             }
-            $this->redirectToRoute('/');
+            return $this->redirectToRoute('default_contact_us');
         }
 
 //        dump($message);
