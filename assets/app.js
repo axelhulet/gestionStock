@@ -13,5 +13,12 @@ import  'bootstrap/dist/js/bootstrap.min.js';
 // start the Stimulus application
 import './bootstrap';
 
+const mainNav = document.getElementById('main-nav');
+const menuBtn = document.getElementById('menu-btn');
 
+const toggleNav = e => {
+    mainNav.classList.toggle('open');
+}
+
+menuBtn.addEventListener('click', toggleNav);
 

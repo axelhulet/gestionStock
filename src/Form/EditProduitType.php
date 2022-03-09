@@ -6,7 +6,7 @@ use App\Entity\Client;
 use App\Entity\Produit;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,7 +29,7 @@ class EditProduitType extends AbstractType {
                 'label_attr' => ['class' => 'form-label'],
                 'attr' =>  [ 'class' => 'form-control']
             ])
-            ->add('prixNum', NumberType::class, [
+            ->add('prixNum', MoneyType::class, [
                 'label_attr' => ['class' => 'form-label'],
                 'required' => true,
                 'attr' =>  [ 'class' => 'form-control']

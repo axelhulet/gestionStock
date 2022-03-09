@@ -4,7 +4,7 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,7 +23,7 @@ class AddProduitType extends AbstractType {
                 'required' => true,
                 'attr' =>  [ 'class' => 'form-control']
             ])
-            ->add('prixNum', NumberType::class, [
+            ->add('prixNum', MoneyType::class, [
                 'label_attr' => ['class' => 'form-label'],
                 'required' => true,
                 'attr' =>  [ 'class' => 'form-control']
