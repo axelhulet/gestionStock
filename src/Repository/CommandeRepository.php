@@ -47,4 +47,36 @@ class CommandeRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function countByRef($ref)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.reference LIKE :p1');
+        $qb->setParameter('p1', $ref . '%');
+        $qb->select('COUNT(c.id)');
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+    public function findBySearch($offset, $limit, $keyword) {
+
+        $qb = $this->_getQbWithSearch($keyword);
+//        offset
+        $qb->setFirstResult($offset)
+//            limit
+            ->setMaxResults($limit);
+//        getResult() recuperer une liste de resultat
+//        getOneOrNull Result() recuperer le premier resultat
+        return $qb->getQuery()->getResult();
+    }
+
+    private function _getQbWithSearch($keyword) {
+        //        creer le constructeur de requete
+        //        SELECT * FROM Client AS c
+        //        WHERE deleted = 0 AND
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.deleted = 0');
+        if ($keyword) {
+            $qb->andWhere('c.nom LIKE :p1 OR c.prenom LIKE :p1 OR c.reference LIKE :p1');
+            $qb->setParameter('p1', $keyword . '%');
+        }
+        return $qb;
+    }
 }

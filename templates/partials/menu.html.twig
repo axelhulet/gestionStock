@@ -25,7 +25,12 @@
         </li>
         <li class="{{ routeName == 'produit' ? 'active' : '' }}">
             <a href="{{ path('produit') }}">
-                <i class="fa fa-beer-mug-empty me-2"></i>Produits
+                <i class="fa fa-shopping-bag me-2"></i>Produits
+            </a>
+        </li>
+        <li class="{{ routeName == 'commande' ? 'active' : '' }}">
+            <a href="{{ path('commande') }}">
+                <i class="fa fa-shopping-cart me-2"></i>Commandes
             </a>
         </li>
     </ul>

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commandes{% endblock %}
+
+{% block body %}
+    <div>
+
+        <a class="btn btn-dark mb-2 orange" href="{{ path('commande_add') }}">Nouveau</a>
+
+    </div>
+<div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Réference</th>
+            <th scope="col">Date</th>
+            <th scope="col">Client</th>
+            <th scope="col">Etat</th>
+            <th scope="col">Modifier</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                <td>{{ commande.reference }}</td>
+                <td>{{ commande.creationdate | date("Y-m-d") }}</td>
+                <td>{{ commande.client }}</td>
+                <td>{{ commande.etat }}</td>
+                <td><a class="btn btn-sm btn-success" href="{{ path('commande_update',{id: commande.id} ) }}" ><i class="fa fa-edit"></i></a></td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

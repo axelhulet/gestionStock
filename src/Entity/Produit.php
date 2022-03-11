@@ -19,8 +19,8 @@ class Produit
     #[ORM\Column(type: 'string', length: 50 )]
     private $nom;
 
-    #[ORM\Column(name:'description',type: 'text', length: 255 ,nullable: true)]
-    private $desc;
+    #[ORM\Column(type: 'text', length: 255 ,nullable: true)]
+    private $description;
 
     #[ORM\Column(type: 'decimal', precision: 7, scale: 2 )]
     private $prixNum;
@@ -70,20 +70,21 @@ class Produit
     /**
      * @return mixed
      */
-    public function getDesc()
+    public function getDescription()
     {
-        return $this->desc;
+        return $this->description;
     }
 
     /**
-     * @param mixed $desc
+     * @param mixed $description
      * @return Produit
      */
-    public function setDesc($desc)
+    public function setDescription($description)
     {
-        $this->desc = $desc;
+        $this->description = $description;
         return $this;
     }
+
 
     /**
      * @return mixed

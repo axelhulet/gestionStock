@@ -82,6 +82,9 @@ class ClientController extends AbstractController
     public function update($id, Request $request, EntityManagerInterface $em,ClientRepository $repo){
 
         $client = $repo->find($id);
+        if($client == null || $client->getDeleted()){
+            throw new NotFoundHttpException();
+        }
         $form = $this->createForm(EditClientType::class, $client);
         $form->handleRequest($request);
 
