@@ -88,4 +88,17 @@ class ProduitRepository extends ServiceEntityRepository
         $qb->select('COUNT(p.id)');
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function findByName($name)
+    {
+        $qb =$this->createQueryBuilder('p');
+        $qb->where('p.deleted = 0');
+        $qb->andWhere('p.nom LIKE :p1');
+        $qb->andWhere('p.stock > 0');
+        $qb->setParameter('p1', $name . '%');
+        $qb->orderBy('p.nom');
+        $qb->setMaxResults(20);
+
+        return $qb->getQuery()->getResult();
+    }
 }

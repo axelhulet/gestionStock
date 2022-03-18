@@ -24,7 +24,9 @@ class Commande
     #[ORM\Column(type: 'date' )]
     private $creationdate;
 
-    #[ORM\Column(type: 'smallint' )]
+
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Etat')]
+    #[ORM\JoinColumn(onDelete: 'NO ACTION', nullable: false)]
     private $etat;
 
     //    cascade ['persist'] permet de sauvegarder une commande et un client en même temps

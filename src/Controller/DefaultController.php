@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Message;
-use App\Entity\User;
 use App\Form\MessageType;
-use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +28,16 @@ class DefaultController extends AbstractController
         $name = $request->query->get('name');
         dump($name);
         return $this->render('default/home.html.twig');
+    }
+
+    #[Route('/secured', name: 'app_home_secured')]
+    public function secureAction(): Response
+    {
+        $user = $this->getUser();
+
+        return $this->render('default/secured.html.twig', [
+            'user' => $user
+        ]);
     }
 
     #[Route(path: '/contact/{id}',
@@ -93,16 +101,5 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/new_user', name: 'default_new_user')]
-    public function newUser(Request $request) {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
 
-
-
-        return $this->render('default/new_user.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
 }

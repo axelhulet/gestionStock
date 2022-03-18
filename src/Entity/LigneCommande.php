@@ -16,7 +16,7 @@ class LigneCommande
     #[ORM\Column(type: 'integer')]
     private $quantite;
 
-    #[ORM\Column(type: 'decimal', precision: 7, scale: 2 )]
+    #[ORM\Column(type: 'decimal', precision: 7, scale: 2,nullable: true )]
     private $prix;
 
     #[ORM\ManyToOne(targetEntity: 'App\Entity\Commande', inversedBy: 'lignes')]
@@ -102,5 +102,16 @@ class LigneCommande
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function serialize(){
+        $prix = $this->prix ?: $this->getProduit()->getPrixNum();
+        return [
+            'id' => $this->id,
+            'quantite' => $this->quantite * 1,
+            'prix' => $prix * 1,
+            'prixTotal' => ($prix * $this->quantite),
+            'produitRef' => $this->getProduit()->getReference()
+        ];
     }
 }

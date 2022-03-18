@@ -10,6 +10,11 @@ import './styles/app.scss';
 
 import  'bootstrap/dist/js/bootstrap.min.js';
 
+import  'jquery/dist/jquery.min.js';
+
+import 'select2/dist/js/select2.min.js';
+
+
 // start the Stimulus application
 import './bootstrap';
 
@@ -19,6 +24,8 @@ const menuBtn = document.getElementById('menu-btn');
 const toggleNav = e => {
     mainNav.classList.toggle('open');
 }
+
+$('.select2').select2()
 
 menuBtn.addEventListener('click', toggleNav);
 

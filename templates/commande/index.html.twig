@@ -2,11 +2,53 @@
 
 {% block title %}Commandes{% endblock %}
 
+{% set keyword = app.request.get('keyword') %}
+{% set offset = app.request.get('offset') %}
+
 {% block body %}
     <div>
 
         <a class="btn btn-dark mb-2 orange" href="{{ path('commande_add') }}">Nouveau</a>
+        <form method="POST">
+            {{form_widget(form._token)}}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.reference) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.client) }}
+                </div>
+            </div>
 
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.startAt) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.endAt) }}
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.etats) }}
+                </div>
+
+            </div>
+
+            <div class="form-check mt-2 mb-5">
+                <a href="/commande" class="btn btn-close-default" type="reset">Reset
+                    <i class="fas fa-undo"></i></a>
+                <button class="btn btn-dark">Rechercher</button>
+            </div>
+
+
+
+
+        </form >
     </div>
 <div>
     <table class="table">
@@ -25,7 +67,7 @@
                 <td>{{ commande.reference }}</td>
                 <td>{{ commande.creationdate | date("Y-m-d") }}</td>
                 <td>{{ commande.client }}</td>
-                <td>{{ commande.etat }}</td>
+                <td>{{ commande.etat.nom }}</td>
                 <td><a class="btn btn-sm btn-success" href="{{ path('commande_update',{id: commande.id} ) }}" ><i class="fa fa-edit"></i></a></td>
 
             </tr>
@@ -33,3 +75,4 @@
         </tbody>
     </table>
 {% endblock %}
+</div>

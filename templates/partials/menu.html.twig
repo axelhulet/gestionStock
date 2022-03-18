@@ -8,11 +8,13 @@
                 <i class="fa fa-home me-2"></i>Accueil
             </a>
         </li>
+        {% if is_granted('ROLE_COMMANDE') %}
         <li class="{{ routeName == 'default_contact' ? 'active' : '' }}">
             <a href="{{ path('default_contact') }}">
                 <i class="fa fa-book me-2"></i>Contact
             </a>
         </li>
+        {% endif %}
         <li class="{{ routeName == 'default_contact_us' ? 'active' : '' }}">
             <a href="{{ path('default_contact_us') }}">
                 <i class="fa fa-envelope me-2"></i>Contact us
@@ -31,6 +33,16 @@
         <li class="{{ routeName == 'commande' ? 'active' : '' }}">
             <a href="{{ path('commande') }}">
                 <i class="fa fa-shopping-cart me-2"></i>Commandes
+            </a>
+        </li>
+        <li class="{{ routeName == 'app_register' ? 'active' : '' }}">
+            <a href="{{ path('app_register') }}">
+                <i class="fa fa-user-plus me-2"></i>Register
+            </a>
+        </li>
+        <li class="{{ routeName == 'security_login' ? 'active' : '' }}">
+            <a href="{{ path('security_login') }}">
+                <i class="fa fa-sign-in-alt me-2"></i>Login
             </a>
         </li>
     </ul>

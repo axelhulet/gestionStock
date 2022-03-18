@@ -57,7 +57,6 @@ class ClientController extends AbstractController
             $request->query->get('offset'),
             $request->query->get('limit') ?: 2,
             $request->query->get('keyword'));
-
         $total = $repo->countBySearch($request->query->get('keyword'));
 
         return $this->render('client/index.html.twig', [

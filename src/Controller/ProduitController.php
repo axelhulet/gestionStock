@@ -6,6 +6,7 @@ use App\Form\AddProduitType;
 use App\Form\EditProduitType;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,6 +87,21 @@ class ProduitController extends AbstractController {
         return $this->render('produit/edit.html.twig', [
             'form' => $form->createView(),
             'produit' => $produit
-        ]);    }
+        ]);
+    }
+
+    #[Route('produit/search', name: 'produit_search')]
+    public function getByName(Request $request, ProduitRepository $repo)
+    {
+        $name = $request->query->get('name');
+        $products = $repo->findByName($name);
+
+        return new JsonResponse(
+            array_map(
+                function ($item) {return $item->serialize();},
+                $products
+            )
+        );
+    }
 
 }
